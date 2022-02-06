@@ -28,8 +28,40 @@ def print_rotations(matrix):
             print(rotation[i]," ", end='')
         print("")
 
+    print('\n----------------------')
+
+def print_BWT(bwt):
+    """Prints transformed T string"""
+    for char in bwt:
+        print(char,' ', end= ' ')
+    print('\n----------------------')
 
 
-my_list = rotations("$agac")
+T = "$agac"
 
-print_rotations(my_list)
+print("The Rotations:")
+print_rotations(rotations(T))
+
+
+print("The BWM:")
+print_rotations(get_bwm(T))
+
+
+transformed = BWT(T)
+print("The transformed String:")
+print_BWT(BWT(T))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
