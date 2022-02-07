@@ -9,9 +9,9 @@ This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler
     
     Substrings of read extracted with or without overlap. Seed length (parameter -L) can be set anywhere from 4-32 (20-25 with good rapport). When read length varies, it is better to use a seed length as a sublinear function of read length: 
     
-    $$
+    ```
     I(x) = max(1, floor(1 + 1.15 * √x)) 
-    $$
+    ```
     
     —> Bowtie2 end-to-end mode default (-i option to configure)
     
@@ -27,9 +27,9 @@ This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler
     
     Each seed-hit range spans an amount or rows. The rows are scored according to the range of the hit: 
     
-    $$
+    ```
     1/r2
-    $$
+    ```
     
     where r is the total number of rows in the range. Then, rows are chosen in a random weighted fashion to be LF mapped to the reference by calculating the offset using the walk-left procedure. Each resolved offset as well as information on the seed that generated it are passed to step 4.
     
