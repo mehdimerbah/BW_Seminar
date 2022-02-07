@@ -44,8 +44,7 @@ Gap penalties for the read and reference can be separately adjusted. Penalties f
 
 ## Bowtie version history
 
-- Bowtie 2 is not an upgrade of Bowtie 1 and should be considered two different tools.
-- Bowtie 2 builds on Bowtie 1, but Bowtie 1 is more adapted for shorter reads, whereas Bowtie 2 is optimized to handle reads without a maximum read length.
+- Bowtie 2 is optimized to handle reads without a maximum read length, unlike Bowtie 1.
 - Bowtie 1 does not permit gaps, whereas Bowtie 2 does.
 - Bowtie 1 can only perform global alignment whereas Bowtie 2 can perform both global and local (by trimming either end of the read)
 - Bowtie1 (Langmead et al., 2009):
