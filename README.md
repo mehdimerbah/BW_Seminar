@@ -1,5 +1,5 @@
 # Bowtie2 Seminar
-This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler Transform and FM-index in Short-read sequence mapping.
+This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler Transform and FM-index in short-read sequence mapping.
 
 ## Bowtie2
 
@@ -7,7 +7,7 @@ This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler
 
 1. Seed Extraction: 
     
-    Substrings of read extracted with or without overlap. Seed length (parameter -L) can be set anywhere from 4-32 (20-25 with good rapport). When read length varies, it is better to use a seed length as a sublinear function of read length: 
+    Substrings of read extracted with or without overlap. Seed length (parameter -L) can be set anywhere from 4-32 (20-25 with good rapport). When read length varies, it is better to use a seed interval length as a sublinear function of read length: 
     
     ```
     I(x) = max(1, floor(1 + 1.15 * √x)) 
@@ -27,9 +27,9 @@ This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler
     
     Each seed-hit range spans an amount or rows. The rows are scored according to the range of the hit: 
     
-    ```
-    1/r2
-    ```
+  
+    <code>1/r<sup>2</sup></code>
+   
     
     where r is the total number of rows in the range. Then, rows are chosen in a random weighted fashion to be LF mapped to the reference by calculating the offset using the walk-left procedure. Each resolved offset as well as information on the seed that generated it are passed to step 4.
     
@@ -44,8 +44,8 @@ Gap penalties for the read and reference can be separately adjusted. Penalties f
 
 ## Bowtie version history
 
-- Bowtie 2 is optimized to handle reads without a maximum read length, unlike Bowtie 1.
-- Bowtie 1 does not permit gaps, whereas Bowtie 2 does.
+- Bowtie 2 builds on Bowtie 1, but Bowtie 1 is more adapted for shorter reads (<50 bp, maximum 1000 bp), whereas Bowtie 2 is optimized to handle reads without a maximum read length.
+- Bowtie 1 does not permit gaps or aligning ambiguous bases (Ns or .s), whereas Bowtie 2 does.
 - Bowtie 1 can only perform global alignment whereas Bowtie 2 can perform both global and local (by trimming either end of the read)
 - Bowtie1 (Langmead et al., 2009):
     - assumptions mostly applicable to mammalian sequencing efforts with short reads
@@ -91,7 +91,7 @@ Gap penalties for the read and reference can be separately adjusted. Penalties f
     - SW alignment
     - parallelized
 - HISAT2 (Kim et al., 2019):
-    - Hierarchical indexing scheme alignment tool 2
+    - Hierarchical indexing for spliced alignment of transcripts alignment tool 2
     - Long repeats projected to a single location, then later retrieved from FM index
     - support for HLA typing, DNA-fingerprinting analysis
     - builds linear graph of reference genome, and adds alternative paths for mutations, deletions, insertions. This graph is then turned into a prefix sorted graph
