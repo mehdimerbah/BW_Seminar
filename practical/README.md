@@ -16,6 +16,9 @@ bowtie2 can be used to:
 
 ## Using Bowtie2 on the command line
 
+The following DNA sequencing read data files were downloaded from the NCBI Sequence Read Archive. You can download it from [here](https://www.ebi.ac.uk/ena/browser/view/SRR030257?show=readsls).
+
+
 ### Indexing a reference genome/sequence using bowtie2-build
 
 Before aligning reads to a reference genome with bowtie2, it must be indexed using bowtie2-build. This command will create six files with the extensions .1.bt2, .2.bt2, .3.bt2, .4.bt2, .rev.1.bt2, and .rev.2.bt2. These six files together are the index. Once an index has been created, the original reference genome/sequence is no longer needed to align reads. Here’s an example bowtie2-build command:
