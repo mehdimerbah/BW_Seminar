@@ -39,12 +39,12 @@ $ bowtie2 --no-unal -p n -x index_name -1 reads_1.fastq -2 reads_2.fastq -S outp
 
 In this command…
 
-`--no-unal` is an optional argument, meaning reads that do not align to the reference genome will not be written to sam output
-`-p` is the number (n) of processors/threads used
-`-x` is the genome index
-`-1` is the file(s) containing mate 1 reads
-`-2` is the file(s) containing mate 2 reads
-`-S` is the output alignment in sam format
+`--no-unal` is an optional argument, meaning reads that do not align to the reference genome will not be written to sam output.  
+`-p` is the number (n) of processors/threads used.    
+`-x` is the genome index.     
+`-1` is the file(s) containing mate 1 reads.    
+`-2` is the file(s) containing mate 2 reads.     
+`-S` is the output alignment in sam format.     
 
 ## Using Bowtie2 in R
 
