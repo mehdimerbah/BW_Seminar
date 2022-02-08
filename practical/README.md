@@ -83,7 +83,21 @@ reads_2 <- system.file(package="Rbowtie2", "extdata", "adrm", "reads_2.fq")
 output1=file.path(td,"reads_1.trimmed.fq"),
 output2=file.path(td,"reads_2.trimmed.fq"),
 basename=file.path(td,"reads.base"),overwrite=TRUE,"--threads 3"))
+
 ```
+### Build Bowtie2 Index
+
+Before aligning reads, bowtie2 index should be build. refs is a character vector of fasta reference file paths. A prefix of bowtie index should be set to argument bt2Index. Then, 6 index files with .bt2 file name extension will be created with bt2Index prefix.
+
+```
+td <- tempdir()
+refs <- dir(system.file(package="Rbowtie2", "extdata", "bt2","refs"),full=TRUE)
+(cmdout<-bowtie2_build(references=refs, 
+              bt2Index=file.path(td, "sequence_idx"), "--threads 4 --quiet",
+              overwrite=TRUE))
+
+```
+
 ### Alignment
 
 ```
