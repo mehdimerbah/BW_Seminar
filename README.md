@@ -1,6 +1,15 @@
 # Bowtie2 Seminar
 This is a repository for a seminar on Bowtie2 and its use of the Burrows-Wheeler Transform and FM-index in short-read sequence mapping.
 
+## Biological Context
+
+- Read mapping
+- Mapping vs Assembly
+- Variant analysis, differential expression analysis with RNA seq, downstream analysis (important initial step in many genomics and transcriptomics workflows)
+- HLA markers, DNA fingerprinting, monitoring metabolism
+- Analysis of transcripts with splice junctions as well as possible gaps in the alignment (for example with Illumina paired-end sequencing) —> need for gapped alignment which Bowtie1 does not support.
+
+
 ## Bowtie2
 
 4 Steps:
