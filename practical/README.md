@@ -62,7 +62,8 @@ library(Rbowtie2)
 ```
 
 ### Adapter Trimming
-**Idetitify Adapter**
+
+**Identify Adapters**
 
 If you know the adapter sequence of reads files, you can skip this step. Besides,single end data is not support for this function yet so adapter sequence has to be known .
 
