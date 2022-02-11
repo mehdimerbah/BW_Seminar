@@ -16,12 +16,12 @@ bowtie2 can be used to:
 
 ## Using Bowtie2 on the command line
 
-The following DNA sequencing read data files were downloaded from the NCBI Sequence Read Archive. You can download it from [here](https://www.ebi.ac.uk/ena/browser/view/SRR030257?show=readsls).
+The DNA sequencing read data files were downloaded from the NCBI Sequence Read Archive. You can download them from [here](https://www.ebi.ac.uk/ena/browser/view/SRR030257?show=readsls).
 
 
 ### Indexing a reference genome/sequence using bowtie2-build
 
-Before aligning reads to a reference genome with bowtie2, it must be indexed using bowtie2-build. This command will create six files with the extensions .1.bt2, .2.bt2, .3.bt2, .4.bt2, .rev.1.bt2, and .rev.2.bt2. These six files together are the index. Once an index has been created, the original reference genome/sequence is no longer needed to align reads. Here’s an example bowtie2-build command:
+Before aligning reads to a reference genome with bowtie2, it must be indexed using bowtie2-build. This command will create six files with the extensions `.1.bt2`, `.2.bt2`, `.3.bt2`, `.4.bt2`, `.rev.1.bt2`, and `.rev.2.bt2` . These six files together are the index. Once an index has been created, the original reference genome/sequence is no longer needed to align reads. Here’s an example bowtie2-build command:
 
 ```
 $ bowtie2-build reference_sequence.fasta index_name
@@ -48,7 +48,26 @@ In this command…
 
 ## Using Bowtie2 in R
 
+The package provides an R wrapper of
+[Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml) and
+[AdapterRemoval](https://github.com/MikkelSchubert/adapterremoval).
+Bowtie2 is the popular sequencing reads aligner, 
+which is good at aligning reads with length above 50bp[1]. 
+AdapterRemoval is a convenient tool for rapid adapter trimming,
+identification, and read merging[2]. 
+Both of them are implemented with C++. We wrap them
+into an R package that provide user friendly interfaces for R users.
+
+You can preprocess the raw sequencing data by using AadapterRemoval even
+if adapter(s) information is missing. Then, Bowtie2 can aligned these
+preprocessed reads to the references. 
+
+This package is developed and maintained by members of 
+[Xiaowo Wang Lab](http://bioinfo.au.tsinghua.edu.cn/member/xwwang)
+
+
 ### Installation 
+RBowtie2 is part of the Bioconductor project. To install it along with its corresponding dependencies, run the following code cell:    
 
 ```
 if (!requireNamespace("BiocManager", quietly=TRUE))
@@ -57,6 +76,7 @@ BiocManager::install("Rbowtie2")
 ```
 
 ### Loading
+load the package by calling it with the library function. You need to load the package like this each time you would like to use it.
 ```
 library(Rbowtie2)
 ```
@@ -88,11 +108,12 @@ basename=file.path(td,"reads.base"),overwrite=TRUE,"--threads 3"))
 ```
 ### Build Bowtie2 Index
 
-Before aligning reads, bowtie2 index should be build. refs is a character vector of fasta reference file paths. A prefix of bowtie index should be set to argument bt2Index. Then, 6 index files with .bt2 file name extension will be created with bt2Index prefix.
+Before aligning reads, bowtie2 index should be build. refs is a character vector of fasta reference file paths. A prefix of bowtie index should be set to argument bt2Index. Then, 6 index files with `.bt2` file name extension will be created with bt2Index prefix.
 
 ```
 td <- tempdir()
 refs <- dir(system.file(package="Rbowtie2", "extdata", "bt2","refs"),full=TRUE)
+
 (cmdout<-bowtie2_build(references=refs, 
               bt2Index=file.path(td, "sequence_idx"), "--threads 4 --quiet",
               overwrite=TRUE))
@@ -100,14 +121,17 @@ refs <- dir(system.file(package="Rbowtie2", "extdata", "bt2","refs"),full=TRUE)
 ```
 
 ### Alignment
+reads will be mapped to reference by calling bowtie2. 
+The result is saved in a sam file whose path is set to output
 
 ```
 reads_1 <- system.file(package="Rbowtie2", "extdata", 
                        "bt2", "reads", "reads_1.fastq")
 reads_2 <- system.file(package="Rbowtie2", "extdata", 
                        "bt2", "reads", "reads_2.fastq")
-if(file.exists(file.path(td, "lambda_virus.1.bt2"))){
-    (cmdout<-bowtie2_samtools(bt2Index = file.path(td, "lambda_virus"),
+
+if(file.exists(file.path(td, "ref_seq_idx.1.bt2"))){
+    (cmdout<-bowtie2_samtools(bt2Index = file.path(td, "ref_seq_idx"),
         output = file.path(td, "result"),
         outputType = "sam",
         seq1=reads_1,
@@ -118,3 +142,12 @@ if(file.exists(file.path(td, "lambda_virus.1.bt2"))){
     head(readLines(file.path(td, "result.sam")))
 }
 ```
+
+## References
+
+[1] Langmead, B., & Salzberg, S. L. (2012). Fast gapped-read alignment
+with Bowtie 2. Nature methods, 9(4), 357-359.
+
+[2] Schubert, Lindgreen, and Orlando (2016). AdapterRemoval v2: rapid
+adapter trimming, identification, and read merging. BMC Research Notes,
+12;9(1):88.
